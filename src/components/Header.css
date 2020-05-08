@@ -1,0 +1,10 @@
+.ui.menu {
+    padding: 7px 10px;
+}
+.ui.menu .item {
+    padding: 5px 15px;
+}
+
+.ui.menu .grid {
+    padding: 5px 15px;
+}
