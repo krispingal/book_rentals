@@ -6,4 +6,5 @@ export const FETCH_PRODUCT = 'FETCH_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 export const FETCH_REQUESTS = 'FETCH_REQUESTS';
+export const CREATE_REQUEST = 'CREATE_REQUEST';
 export const FETCH_USER = 'FETCH_USER';

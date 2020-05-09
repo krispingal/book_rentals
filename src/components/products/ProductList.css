@@ -1,0 +1,11 @@
+.productDescription {
+    padding: 7px 0px;
+}
+
+.currencySymbol {
+    font-weight: bold;
+}
+
+.currencyValue {
+    font-weight: bold;
+}

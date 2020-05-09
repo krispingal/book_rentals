@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchProduct } from '../../actions';
+import { fetchProduct, deleteProduct } from '../../actions';
 
 class ProductShow extends React.Component {
     componentDidMount() {
@@ -12,8 +12,11 @@ class ProductShow extends React.Component {
         const { product } = this.props;
         return (
             <div className="product_description">
-                <h3 class="ui top attached header">
+                <h3 className="ui top attached header">
                     {product.title}
+                    <div className="sub header">
+                        ${product.price}
+                    </div>
                 </h3>
                 <div className="ui attached segment">
                 <div className="description">{product.description}</div>
@@ -21,6 +24,11 @@ class ProductShow extends React.Component {
                 
 		    </div>
         );
+    }
+
+    onBuyClick = () => {
+        // console.log(this.props.product.id);
+        this.props.deleteProduct(this.props.product.id)
     }
 
 	render(){
@@ -33,8 +41,8 @@ class ProductShow extends React.Component {
             <div>
                 {this.renderProductDetails()}
                 <div className="attched two ui buttons" >
-                    <button className="ui button primary">{actionButtonText}</button>
-                    <button className="ui button">Cancel</button>
+                    <button onClick={this.onBuyClick} className="ui button primary">{actionButtonText}</button>
+                    <button onClick={this.onCancelClick} className="ui button">Cancel</button>
                 </div>
             </div>
         )
@@ -47,5 +55,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
     mapStateToProps,
-    { fetchProduct }
+    { fetchProduct, deleteProduct }
 )(ProductShow);

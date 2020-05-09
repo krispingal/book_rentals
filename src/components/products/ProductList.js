@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchProducts } from '../../actions';
+import './ProductList.css';
 
 class ProductList extends React.Component {
 	componentDidMount() {
@@ -14,13 +15,15 @@ class ProductList extends React.Component {
 				<div className="item" key={product.id}>
 					<i className="large middle aligned icon camera" />
 					<div className="content">
-						<div className="ui small header">
+						<div className="ui medium header">
 							<Link to={`/products/${product.id}`}>
 								{product.title}
 							</Link>
 						</div>
 						<div className="productDescription">{product.description}</div>
 						<div className="productListingType">Buying option : {product.renting ? 'Buy' : 'Rent'}</div>
+						<span className="currencySymbol">$</span>
+						<span className="currencyValue">{product.price.toFixed(2)}</span>
 					</div>
 				</div>
 			);
@@ -44,8 +47,6 @@ class ProductList extends React.Component {
 const mapStateToProps = (state) => {
 	return { 
 		products: Object.values(state.products),
-		currentUserId: state.auth.userId,
-		isSignedIn: state.auth.isSignedIn
 	};
 }
 
