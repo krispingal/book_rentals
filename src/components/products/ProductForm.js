@@ -45,6 +45,8 @@ class ProductForm extends React.Component {
 						{title: 'Rent', value: 'rent'}
 					]} 
 				/>
+				<Field name="category" component={this.renderInput} label="Category"/>
+				<Field name="year" component={this.renderInput} inputType="number" label="Enter Year of Purchase"/>
 				<Field name="price" component={this.renderInput} inputType="number" label="Enter Price"/>
 
 				<button className="ui button primary">Submit</button>
@@ -91,11 +93,9 @@ const validate = (formValues) => {
 	if (!formValues.title) {
 		errors.title = 'You must enter a title';
 	}
-
 	if (!formValues.description) {
 		errors.description = 'You must enter a description';
 	}
-
 	if (!formValues.listingType) {
 		errors.listingType = 'You must provide a Listing type';
 	}
@@ -103,7 +103,10 @@ const validate = (formValues) => {
 		errors.price = 'You must provide a price'
 	}
 	if (formValues.price && formValues.price <= 0) {
-		errors.price = 'Who are you kidding with that price'
+		errors.price = 'Who are you kidding with that price';
+	}
+	if (!formValues.year) {
+		errors.year = 'You must enter a year';
 	}
 
 	return errors;

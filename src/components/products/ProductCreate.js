@@ -1,17 +1,27 @@
+import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { createProduct } from '../../actions';
 import ProductForm from './ProductForm';
 
 class ProductCreate extends React.Component {
-    onSubmit(formValues) {
-        console.log(formValues);
+    onSubmit = (formValues) => {
+        const payload = _.pick(formValues, 'title', 'description', 'category');
+        //Processing fields
+        const processedFields = {
+            'renting': formValues['listingType'] === 'Rent',
+            'price': Number(formValues['price']),
+            'year': Number(formValues['year'])
+        }
+        this.props.createProduct({...payload, ...processedFields});
     }
 
     render() {
         return (
             <div>
-                <h3>Create a Product listing</h3>
+                <div className="container">
+                    <h2 className="ui header center aligned">Create a Product listing</h2>
+                </div>
                 <ProductForm onSubmit={this.onSubmit} />
             </div>
         );
