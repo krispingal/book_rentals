@@ -21,9 +21,9 @@ class ProductList extends React.Component {
 							</Link>
 						</div>
 						<div className="productDescription">{product.description}</div>
-						<div className="productListingType">Buying option : {product.renting ? 'Buy' : 'Rent'}</div>
+						<div className="productListingType">Buying option : {product.renting ? 'Rent' : 'Buy'}</div>
 						<span className="currencySymbol">$</span>
-						<span className="currencyValue">{product.price.toFixed(2)}</span>
+						<span className="currencyValue">{product.price}</span>
 					</div>
 				</div>
 			);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchProduct, deleteProduct } from '../../actions';
+import history from '../../history';
 
 class ProductShow extends React.Component {
     componentDidMount() {
@@ -19,16 +20,18 @@ class ProductShow extends React.Component {
                     </div>
                 </h3>
                 <div className="ui attached segment">
-                <div className="description">{product.description}</div>
+                    <div className="description">{product.description}</div>
                 </div>
-                
 		    </div>
         );
     }
 
     onBuyClick = () => {
-        // console.log(this.props.product.id);
-        this.props.deleteProduct(this.props.product.id)
+        this.props.deleteProduct(this.props.product.id);
+    }
+
+    onCancelClick = () => {
+        history.push('/');
     }
 
 	render(){

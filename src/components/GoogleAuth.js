@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { signIn, signOut } from '../actions';
+// import profiles from '../apis/profiles';
 
 class GoogleAuth extends React.Component {
 
@@ -19,7 +20,14 @@ class GoogleAuth extends React.Component {
 
 	onAuthChange = (isSignedIn) => {
 		if (isSignedIn) {
-			this.props.signIn(this.auth.currentUser.get().getId());
+			var profile = this.auth.currentUser.get().getBasicProfile();
+			this.props.signIn(profile.getId(), profile.getGivenName());
+			// var profilePayload = { 
+			// 	'id': profile.getId(),
+			// 	'email': profile.getEmail(),
+			// 	'name': profile.getGivenName()
+			// };
+
 		} else {
 			this.props.signOut();
 		}
@@ -55,7 +63,7 @@ class GoogleAuth extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="item">
 				{this.renderAuthButton()}
 			</div>
 		);
