@@ -1,5 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import FieldFileInput from '../utils/FieldFileInput';
+import FieldRadioGroup from '../utils/FieldRadioGroup';
 
 class ProductForm extends React.Component {
 	renderError({ error, touched }) {
@@ -36,7 +38,7 @@ class ProductForm extends React.Component {
 				<Field name="title" component={this.renderInput} label="Enter Title"/>
 				<Field name="description" component={this.renderInput} label="Enter Description"/>
 				<Field 
-					component={RadioGroup} 
+					component={FieldRadioGroup} 
 					name="listingType"
 					label="Listing Type" 
 					required={true} 
@@ -48,44 +50,17 @@ class ProductForm extends React.Component {
 				<Field name="category" component={this.renderInput} label="Category"/>
 				<Field name="year" component={this.renderInput} inputType="number" label="Enter Year of Purchase"/>
 				<Field name="price" component={this.renderInput} inputType="number" label="Enter Price"/>
+				<Field 
+					name="image" 
+					component={FieldFileInput}
+					label="Upload an image of the product"
+					required={true}
+				/>
 
 				<button className="ui button primary">Submit</button>
 			</form>
 		);
 	}
-}
-
-class RadioGroup extends React.Component {
-	renderError({ error, touched }) {
-		if (touched && error) {
-			return (
-				<div className="ui error message">
-					<div className="header">{error}</div>
-				</div>
-			);
-		}
-	}
-
-    render() {
-		const { input, label, options, meta } = this.props
-		
-        const className = `field ${meta.error && meta.touched ? 'error': ''}`
-
-        return (
-            <div className={className}>
-				<label>{label}</label>
-				<div>
-					{options.map(o => 
-						<label key={o.value}>
-							<input type="radio" {...input} value={o.value} checked={o.value === input.value} />
-							{o.title}
-						</label>
-					)}
-				</div>
-				{this.renderError(meta)}
-            </div>
-        );
-    }
 }
 
 const validate = (formValues) => {

@@ -9,11 +9,12 @@ class ProductCreate extends React.Component {
         const payload = _.pick(formValues, 'title', 'description', 'category');
         //Processing fields
         const processedFields = {
-            'renting': formValues['listingType'] === 'Rent',
+            'renting': formValues['listingType'] === 'rent',
             'price': Number(formValues['price']),
             'year': Number(formValues['year'])
         }
-        this.props.createProduct({...payload, ...processedFields});
+        // console.log(formValues);
+        this.props.createProduct({...payload, ...processedFields}, formValues['image']);
     }
 
     render() {

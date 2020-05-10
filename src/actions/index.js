@@ -1,5 +1,7 @@
 import products from '../apis/products';
-import profiles from '../apis/profiles';
+import requests from '../apis/requests';
+import images from '../apis/images';
+// import profiles from '../apis/profiles';
 import history from '../history';
 import { 
 	SIGN_IN, 
@@ -25,16 +27,26 @@ export const signOut = () => {
 	};
 };
 
-export const signUp = (profileInfo) => async () => {
-	profiles.post('/profiles', profileInfo);
-}
+// export const signUp = (profileInfo) => async () => {
+// 	profiles.post('/profiles', profileInfo);
+// }
 
-export const createProduct = (formValues) => async (dispatch, getState) => {
+
+export const createProduct = (formValues, image) => async (dispatch, getState) => {
 	// console.log(formValues);
 	const { userId, userName } = getState().auth;
 	const response = await products.post('/product', { ...formValues, userId, userName});
-
-	dispatch({ type: CREATE_PRODUCT, payload: response.data});
+	const { id } = response.data;
+	
+	var bodyFormData = new FormData();
+	bodyFormData.append('input_file', image); 
+	const config = {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }
+	await images.post(`/image/${id}`, bodyFormData, config);
+	dispatch({ type: CREATE_PRODUCT, payload: id });
 	history.push('/');
 }
 
@@ -60,14 +72,14 @@ export const deleteProduct = id => async dispatch => {
 export const createRequest = (formValues) => async (dispatch, getState) => {
 	// console.log(formValues);
 	const { userId, userName } = getState().auth;
-	const response = await products.post('/request', { ...formValues, userId, userName});
+	const response = await requests.post('/request', { ...formValues, userId, userName});
 
 	dispatch({ type: CREATE_REQUEST, payload: response.data});
 	history.push('/requests');
 }
 
 export const fetchRequests = () => async dispatch => {
-	const response = await products.get('/requests/0');
+	const response = await requests.get('/requests/0');
 
 	dispatch({ type: FETCH_REQUESTS, payload: response.data });
 };
