@@ -19,8 +19,23 @@ class ProductShow extends React.Component {
                         ${product.price}
                     </div>
                 </h3>
-                <div className="ui attached segment">
-                    <div className="description">{product.description}</div>
+                <div>
+                    <img 
+                        className="ui centered medium image" 
+                        src={`https://20200508t233338-dot-mediaservice-dot-studentrentals.uc.r.appspot.com/image/${product.id}`}
+                        onError={i => i.target.style.display='none'} 
+                    />
+                    <div className="description">
+                        <h5 className="ui header">Description:</h5>
+                        {product.description}
+                    </div>
+                    <span><b>Year of Purchase: </b>{product.year} </span>
+                    <br />
+                    <span><b>Listing posted by: </b>{product.userName}</span>
+                    <br />
+                    {/* <span><b>Posted on: </b>{product.postingDate}</span> */}
+                    <br />
+                    <span><b>Category: </b>{product.category}</span>
                 </div>
 		    </div>
         );
